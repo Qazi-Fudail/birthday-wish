@@ -62,8 +62,14 @@
     align-items:center;
     justify-content:center;
     height: calc(100vh - 180px); /* leaves room for heading and button */
+    animation: float 3s 1s ease-in-out infinite;
     margin-top: 10px;
   }
+/* Floating Animation */
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
 
   /* Card container */
   .card-container{
@@ -78,9 +84,9 @@
   /* INSIDE (left) page — NOTE: transform-origin LEFT center */
   .card-inside{
     position: absolute;
-    left: 35%;
+    left: 29%;
     top: 0;
-    width: 49%;
+    width: 70%;
     height: 100%;
     background: rgb(219,14,14);
     border: 4px solid rgb(241,20,175);
@@ -110,9 +116,9 @@
   /* FRONT (right) page */
   .card-front{
     position: absolute;
-    right: 15%;
+    right: 0;
     top: 0;
-    width: 50%;
+    width: 70%;
     height: 100%;
     background: #fff;
     border-left: 2px solid #f0f0f0;
@@ -195,9 +201,9 @@
 
   /* Responsive tweaks */
   @media (max-width:600px){
-    .fudail h1{ font-size:3.15rem; }
+    .fudail h1{ font-size:2.15rem; }
     .card-container{ height:52vh; max-height:420px; }
-    .card-container{ width: 95vw; max-width: 300px;}
+    .card-container{ width: 95%; max-width: 300px;}
     .inside-text h3{ font-size:1.6rem; }
     .front-text h2{ font-size:1rem; }
     .front-text p, .inside-text p{ font-size:0.85rem; padding:0 6px; }
@@ -205,8 +211,8 @@
     .card-wrapper{ height: calc(100vh - 130px); }
   }
   @media (max-width:520px){
-    .card-container{ width:95vw; }
-    .fudail h1{ font-size:3.15rem; }
+    .card-container{ width:95%; }
+    .fudail h1{ font-size:2.15rem; }
   }
 
   /* avoid text selection on emojis */
