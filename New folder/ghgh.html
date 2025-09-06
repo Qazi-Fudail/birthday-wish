@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Two-Page Birthday Card — Updated</title>
+<style>
+  :root{
+    --max-card-width: 500px;
+    --card-height: 350px;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to top, #ffd8e7, #ffc8e0);
+    overflow:hidden;
+  }
+
+  /* Heading (kept as you wanted) */
+  .fudail{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+    animation: floatText 3s ease-in-out infinite;
+    color: rgba(0,0,0,0.65);
+    text-align:center;
+    padding:0 12px;
+  }
+  .fudail h1{
+    margin:0;
+    font-weight:800;
+    font-size:1.6rem;
+    line-height:1.05;
+    text-shadow: 0 0 5px #ff66cc, 0 0 10px #ff66cc, 0 0 20px #ff69b4;
+  }
+  @keyframes floatText {
+    0%,100%{ transform: translateY(-3%); }
+    50% { transform: translateY(3%); }
+  }
+
+  /* Floating emojis / performance-friendly */
+  .heart, .flower {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0.95;
+    animation: floatUp 6s linear forwards;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity:1; }
+    100% { transform: translateY(-110vh) scale(1.4); opacity:0; }
+  }
+
+  /* Card wrapper & centering below heading */
+  .card-wrapper{
+    perspective:1200px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: calc(100vh - 180px); /* leaves room for heading and button */
+    margin-top: 10px;
+  }
+
+  /* Card container */
+  .card-container{
+    width: 90vw;
+    max-width: var(--max-card-width);
+    height: 60vh;
+    max-height: var(--card-height);
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* INSIDE (left) page — NOTE: transform-origin LEFT center */
+  .card-inside{
+    position: absolute;
+    left: 35%;
+    top: 0;
+    width: 49%;
+    height: 100%;
+    background: rgb(219,14,14);
+    border: 4px solid rgb(241,20,175);
+    border-right: 0px;
+    border-radius: 0px 10px 10px 0px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    box-sizing:border-box;
+    z-index:2; /* default slightly above to be visible */
+    transform-style:preserve-3d;
+    /* backface-visibility:hidden; */
+    color: #fff;
+    text-align:center;
+
+    transform-origin: left center;          /* pivot at left */
+    transition: transform 900ms cubic-bezier(.2,.9,.2,1), z-index 0s 0ms;
+  }
+
+  /* When open: translate right 50% and rotate (so it covers front) */
+  .card-inside.open{
+    transform:  rotateY(160deg); /* moves right + rotates */
+    /* z-index: 6; come on top */
+  }
+
+  /* FRONT (right) page */
+  .card-front{
+    position: absolute;
+    right: 15%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    border-left: 2px solid #f0f0f0;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    box-sizing:border-box;
+    z-index:1; /* below inside normally */
+    pointer-events:auto;
+    transition: opacity 200ms ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* HIDE front's letters/content when the inside page is open (so nothing shows through) */
+  .card-inside.close + .card-front .front-text{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Text */
+  .front-text h2{
+    margin:0 0 8px 0;
+    font-size:1.15rem;
+    color:#667eea;
+    text-align:center;
+    animation: glow 2s infinite alternate;
+    text-shadow: 0 0 8px #fff, 0 0 18px #667eea;
+  }
+  .front-text p { margin:6px 0; font-size:0.95rem; color:#555; text-align:center; }
+  .front-text p.h { margin-top:14px; font-size:0.85rem; text-transform:uppercase; color:#000; }
+
+  .inside-text h3{ font-size:2.1rem; margin:0; color:#fff; }
+  .inside-text p{ color:#fff; margin-top:10px; font-size:1rem; text-align:center; }
+
+  @keyframes glow{
+    0% { text-shadow: 0 0 6px #fff, 0 0 14px #667eea; }
+    100% { text-shadow: 0 0 16px #fff, 0 0 26px #667eea, 0 0 36px #764ba2; }
+  }
+
+  /* Open button now placed inside the left page */
+  .open-btn{
+    position:absolute;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    border:0;
+    background:#ff69b4;
+    color:#fff;
+    padding:8px 16px;
+    border-radius:20px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(255,20,147,0.18);
+    transition: transform .12s ease, background .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .open-btn:active{ transform: translateX(-50%) scale(.98); }
+
+  /* Next (surprise) button centered below card */
+  .surprise-button{
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: #ff69b4;
+    color: white;
+    padding: 10px 22px;
+    border-radius:30px;
+    font-size: 1rem;
+    box-shadow: 0 0 15px #ff1493;
+  }
+  .surprise-button a{ color:white; text-decoration:none; font-weight:700; }
+
+  /* Responsive tweaks */
+  @media (max-width:600px){
+    .fudail h1{ font-size:1.15rem; }
+    .card-container{ height:52vh; max-height:420px; }
+    .inside-text h3{ font-size:1.6rem; }
+    .front-text h2{ font-size:1rem; }
+    .front-text p, .inside-text p{ font-size:0.85rem; padding:0 6px; }
+    .open-btn{ padding:7px 12px; bottom:10px; font-size:0.88rem; }
+    .card-wrapper{ height: calc(100vh - 130px); }
+  }
+  @media (max-width:420px){
+    .card-container{ width:95vw; }
+    .fudail h1{ font-size:1rem; }
+  }
+
+  /* avoid text selection on emojis */
+  .heart, .flower { user-select:none; }
+</style>
+</head>
+<body>
+
+  <div class="fudail">
+    <h1>HY! KASI HU 🤭💖 <br> I HAVE SOMETHING FOR YOU</h1>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="card-container" id="cardContainer">
+      <!-- INSIDE (left) page -->
+      <div class="card-inside" id="cardInside" role="button" aria-pressed="false" aria-label="Open inside page">
+        <div class="inside-text">
+          <h3>🌺</h3>
+          
+        </div>
+
+        <!-- Open button placed on the inside page -->
+        <button class="open-btn" id="openBtn" aria-pressed="false">Open</button>
+      </div>
+
+      <!-- FRONT (right) page -->
+      <div class="card-front" id="cardFront">
+        <div class="front-text">
+          <h2>(DEAR MUBARKA)</h2>
+          <p>Hope u are fine, and enjoying your time wonderfully. If u have a couple of minutes I really want to say something from the bottom of my heart ✨💖</p>
+          <p class="h">(from fudail)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Surprise Next -->
+  <div class="surprise-button"><a href="ready.html">Next</a></div>
+
+  <!-- Floating emoji creation script -->
+  <script>
+    // create emoji with small DOM cap protection
+    function createFloatingEmoji(type){
+      const cap = 80;
+      const current = document.querySelectorAll('.heart, .flower').length;
+      if (current > cap) return;
+      const e = document.createElement('div');
+      e.className = (type === 'heart') ? 'heart' : 'flower';
+      e.textContent = (type === 'heart') ? '💖' : '🌸';
+      e.style.left = (Math.random() * 92 + 4) + 'vw';
+      e.style.fontSize = (Math.random() * 16 + 18) + 'px';
+      const dur = 5.5 + Math.random() * 1.2;
+      e.style.animationDuration = dur + 's';
+      document.body.appendChild(e);
+      setTimeout(()=> e.remove(), Math.ceil(dur * 1000) + 200);
+    }
+
+    // YOUR original fast intervals restored
+    const heartInterval = setInterval(()=> createFloatingEmoji('heart'), 400);
+    const flowerInterval = setInterval(()=> createFloatingEmoji('flower'), 500);
+
+    // ---------- OPEN/CLOSE logic applied to card-inside ----------
+    const cardInside = document.getElementById('cardInside');
+    const openBtn = document.getElementById('openBtn');
+
+    // ensure closed on load
+    cardInside.classList.remove('open');
+    cardInside.setAttribute('aria-pressed', 'false');
+    openBtn.setAttribute('aria-pressed', 'false');
+    openBtn.textContent = 'Open';
+
+    function toggleInsideOpen(e){
+      if (e) e.stopPropagation();
+      const isOpen = cardInside.classList.toggle('open');
+      cardInside.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
+      openBtn.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
+      openBtn.textContent = isOpen ? 'Close' : 'Open';
+    }
+
+    // open button toggles (stopPropagation to avoid double toggles)
+    openBtn.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      toggleInsideOpen(ev);
+    });
+
+    // tapping / clicking the inside left page also toggles
+    cardInside.addEventListener('click', function(ev){
+      // if click was on the button, it was stopped already
+      toggleInsideOpen(ev);
+    });
+
+    // OPTIONAL: clicking outside card closes it (commented out by default)
+    // document.addEventListener('click', function(ev){
+    //   const container = document.getElementById('cardContainer');
+    //   if (!container.contains(ev.target)){
+    //     cardInside.classList.remove('open');
+    //     cardInside.setAttribute('aria-pressed','false');
+    //     openBtn.setAttribute('aria-pressed','false');
+    //     openBtn.textContent = 'Open';
+    //   }
+    // });
+
+    // small safeguard: on very tiny phones, reduce emoji load
+    (function throttleTinyDevices(){
+      const tiny = window.matchMedia('(max-width:360px)').matches;
+      if(tiny){
+        clearInterval(heartInterval);
+        clearInterval(flowerInterval);
+        for(let i=0;i<6;i++){
+          setTimeout(()=> createFloatingEmoji(i%2? 'heart':'flower'), i*300);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
