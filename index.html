@@ -195,17 +195,18 @@
 
   /* Responsive tweaks */
   @media (max-width:600px){
-    .fudail h1{ font-size:1.15rem; }
+    .fudail h1{ font-size:3.15rem; }
     .card-container{ height:52vh; max-height:420px; }
+    .card-container{ width: 95vw; max-width: 300px;}
     .inside-text h3{ font-size:1.6rem; }
     .front-text h2{ font-size:1rem; }
     .front-text p, .inside-text p{ font-size:0.85rem; padding:0 6px; }
     .open-btn{ padding:7px 12px; bottom:10px; font-size:0.88rem; }
     .card-wrapper{ height: calc(100vh - 130px); }
   }
-  @media (max-width:420px){
+  @media (max-width:520px){
     .card-container{ width:95vw; }
-    .fudail h1{ font-size:1rem; }
+    .fudail h1{ font-size:3.15rem; }
   }
 
   /* avoid text selection on emojis */
@@ -309,16 +310,6 @@
     // });
 
     // small safeguard: on very tiny phones, reduce emoji load
-    (function throttleTinyDevices(){
-      const tiny = window.matchMedia('(max-width:360px)').matches;
-      if(tiny){
-        clearInterval(heartInterval);
-        clearInterval(flowerInterval);
-        for(let i=0;i<6;i++){
-          setTimeout(()=> createFloatingEmoji(i%2? 'heart':'flower'), i*300);
-        }
-      }
-    })();
   </script>
 </body>
 </html>
