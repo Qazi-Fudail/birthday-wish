@@ -1,195 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Two-Page Birthday Card — Updated</title>
-<style>
-  :root{
-    --max-card-width: 500px;
-    --card-height: 350px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Cake Celebration</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #ffb6c1, #ff69b4, #ff1493);
+      overflow: hidden;
+    }
 
-  html,body{
-    height:100%;
-    margin:0;
-    padding:0;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(to top, #ffd8e7, #ffc8e0);
-    overflow:hidden;
-  }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
 
-  /* Heading (kept as you wanted) */
-  .fudail{
-    display:flex;
-    justify-content:center;
-    margin-top:30px;
-    animation: floatText 3s ease-in-out infinite;
-    color: rgba(0,0,0,0.65);
-    text-align:center;
-    padding:0 12px;
-  }
-  .fudail h1{
-    margin:0;
-    font-weight:800;
-    font-size:1.6rem;
-    line-height:1.05;
-    text-shadow: 0 0 5px #ff66cc, 0 0 10px #ff66cc, 0 0 20px #ff69b4;
-  }
-  @keyframes floatText {
-    0%,100%{ transform: translateY(-3%); }
-    50% { transform: translateY(3%); }
-  }
+    /* Cake container */
+    .cake {
+      position: relative;
+      width: 220px;
+      height: 180px;
+      display: flex;
+      transition: all 1s ease;
+    }
 
-  /* Floating emojis / performance-friendly */
-  .heart, .flower {
+    .half {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      background: transparent;
+      transition: transform 1s ease;
+    }
+
+    .half.left.cut {
+      transform: translateX(-120px) rotate(-5deg);
+    }
+    .half.right.cut {
+      transform: translateX(120px) rotate(5deg);
+    }
+
+    .layer {
+      position: absolute;
+      left: 97%;
+      transform: translateX(-50%);
+      background: pink;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .layer1 {
+      width: 220px;
+      height: 60px;
+      bottom: 2px;
+    }
+    .layer2 {
+      width: 180px;
+      height: 50px;
+      bottom: 60px;
+    }
+    .layer3 {
+      width: 140px;
+      height: 40px;
+      bottom: 110px;
+    }
+
+
+    /* Candles */
+    .candles {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: absolute;
+      bottom: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .candle {
+      width: 10px;
+      height: 40px;
+      background: white;
+      position: relative;
+      border-radius: 3px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 15px;
+      background: gold;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: flicker 0.3s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { transform: translateX(-50%) scale(1); }
+      to { transform: translateX(-50%) scale(1.2); }
+    }
+
+    /* Banner */
+    .banner {
+      position: absolute;
+      top: 40px;
+      display: flex;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      text-align: center;
+    }
+
+    .banner.show { opacity: 1; }
+
+    .flag {
+      width: 30px;
+      height: 40px;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+      background: #ff5e78;
+    }
+    .flag:nth-child(2n) { background: #f7b267; }
+    .flag:nth-child(3n) { background: #ff69b4; }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 50px;
+      background: red;
+      border-radius: 50%;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-110vh); }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+      }
+    }
+
+    /* Buttons */
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ff5e78;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #e94e64;
+    }
+
+    @media (max-width: 768px) {
+      .cake { width: 180px; height: 150px; }
+      .layer1 { width: 180px; height: 50px; }
+      .layer2 { width: 140px; height: 40px; }
+      .layer3 { width: 100px; height: 30px; }
+      .flag { width: 20px; height: 30px; }
+      button { font-size: 0.9rem; padding: 8px 15px; }
+    }
+    .surprise-button{
     position: absolute;
-    bottom: -40px;
-    opacity: 0.95;
-    animation: floatUp 6s linear forwards;
-    pointer-events: none;
-    will-change: transform, opacity;
-  }
-  @keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity:1; }
-    100% { transform: translateY(-110vh) scale(1.4); opacity:0; }
-  }
-
-  /* Card wrapper & centering below heading */
-  .card-wrapper{
-    perspective:1200px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    height: calc(100vh - 180px); /* leaves room for heading and button */
-    animation: float 3s 1s ease-in-out infinite;
-    margin-top: 0px;
-    margin-left: 15px;
-    margin-bottom: 5px;
-  }
-/* Floating Animation */
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-  /* Card container */
-  .card-container{
-    width: 90vw;
-    max-width: var(--max-card-width);
-    height: 60vh;
-    max-height: var(--card-height);
-    position: relative;
-    box-sizing: border-box;
-  }
-
-  /* INSIDE (left) page — NOTE: transform-origin LEFT center */
-  .card-inside{
-    position: absolute;
-    left: 29%;
-    top: 0;
-    width: 70%;
-    height: 100%;
-    background: rgb(219,14,14);
-    border: 4px solid rgb(241,20,175);
-    border-right: 0px;
-    border-radius: 0px 10px 10px 0px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
-    box-sizing:border-box;
-    z-index:2; /* default slightly above to be visible */
-    transform-style:preserve-3d;
-    /* backface-visibility:hidden; */
-    color: #fff;
-    text-align:center;
-
-    transform-origin: left center;          /* pivot at left */
-    transition: transform 900ms cubic-bezier(.2,.9,.2,1), z-index 0s 0ms;
-  }
-
-  /* When open: translate right 50% and rotate (so it covers front) */
-  .card-inside.open{
-    transform:  rotateY(160deg); /* moves right + rotates */
-    /* z-index: 6; come on top */
-  }
-
-  /* FRONT (right) page */
-  .card-front{
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 70%;
-    height: 100%;
-    background: #fff;
-    border-left: 2px solid #f0f0f0;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.18);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
-    box-sizing:border-box;
-    z-index:1; /* below inside normally */
-    pointer-events:auto;
-    transition: opacity 200ms ease;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-
-  /* HIDE front's letters/content when the inside page is open (so nothing shows through) */
-  .card-inside.close + .card-front .front-text{
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  /* Text */
-  .front-text h2{
-    margin:0 0 8px 0;
-    font-size:1.15rem;
-    color:#667eea;
-    text-align:center;
-    animation: glow 2s infinite alternate;
-    text-shadow: 0 0 8px #fff, 0 0 18px #667eea;
-  }
-  .front-text p { margin:6px 0; font-size:0.95rem; color:#555; text-align:center; }
-  .front-text p.h { margin-top:14px; font-size:0.85rem; text-transform:uppercase; color:#000; }
-
-  .inside-text h3{ font-size:2.1rem; margin:0; color:#fff; }
-  .inside-text p{ color:#fff; margin-top:10px; font-size:1rem; text-align:center; }
-
-  @keyframes glow{
-    0% { text-shadow: 0 0 6px #fff, 0 0 14px #667eea; }
-    100% { text-shadow: 0 0 16px #fff, 0 0 26px #667eea, 0 0 36px #764ba2; }
-  }
-
-  /* Open button now placed inside the left page */
-  .open-btn{
-    position:absolute;
-    bottom:14px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:10;
-    border:0;
-    background:#ff69b4;
-    color:#fff;
-    padding:8px 16px;
-    border-radius:20px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 6px 18px rgba(255,20,147,0.18);
-    transition: transform .12s ease, background .12s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .open-btn:active{ transform: translateX(-50%) scale(.98); }
-
-  /* Next (surprise) button centered below card */
-  .surprise-button{
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
+    bottom: -17px;
+    left: 85%;
     transform: translateX(-50%);
     z-index: 10;
     background: #ff69b4;
@@ -198,126 +210,104 @@
     border-radius:30px;
     font-size: 1rem;
     box-shadow: 0 0 15px #ff1493;
+    /* top: 10px; */
   }
   .surprise-button a{ color:white; text-decoration:none; font-weight:700; }
-
-  /* Responsive tweaks */
-  @media (max-width:600px){
-    .fudail h1{ font-size:2.15rem; }
-    .card-container{ height:52vh; max-height:420px; }
-    .card-container{ width: 95%; max-width: 300px;}
-    .inside-text h3{ font-size:1.6rem; }
-    .front-text h2{ font-size:1rem; }
-    .front-text p, .inside-text p{ font-size:0.85rem; padding:0 6px; }
-    .open-btn{ padding:7px 12px; bottom:10px; font-size:0.88rem; }
-    .card-wrapper{ height: calc(100vh - 130px); }
-  }
-  @media (max-width:520px){
-    .card-container{ width:95%; }
-    .fudail h1{ font-size:2.15rem; }
-  }
-
-  /* avoid text selection on emojis */
-  .heart, .flower { user-select:none; }
-</style>
+  </style>
 </head>
 <body>
 
-  <div class="fudail">
-    <h1>HY! KASI HU 🤭💖 <br> I HAVE SOMETHING FOR YOU</h1>
+  <h1>🎀 Sweet Birthday Surprise 🎂</h1>
+
+  <!-- Banner -->
+  <div class="banner" id="banner">
+    <div class="flag"></div>
+    <div class="flag"></div>
+    <div class="flag"></div>
+    <div class="flag">H</div>
+    <div class="flag">B</div>
+    <div class="flag">D</div>
+    <div class="flag"></div>
+    <div class="flag">M</div>
+    <div class="flag">U</div>
+    <div class="flag">U</div>
+    <div class="flag">B</div>
+    <div class="flag"></div>
+    <div class="flag"></div>
+    <div class="flag"></div>
   </div>
 
-  <div class="card-wrapper">
-    <div class="card-container" id="cardContainer">
-      <!-- INSIDE (left) page -->
-      <div class="card-inside" id="cardInside" role="button" aria-pressed="false" aria-label="Open inside page">
-        <div class="inside-text">
-          <h3>🌺</h3>
-          
-        </div>
+  <!-- Cake -->
+  <div class="cake">
+    <div class="half left" id="leftHalf">
+      <div class="layer layer1"></div>
+      <div class="layer layer2"></div>
+      <div class="layer layer3"></div>
+    </div>
+    <div class="half right" id="rightHalf">
+      <div class="layer layer4"></div>
+      <div class="layer layer5"></div>
+      <div class="layer layer6"></div>
+    </div>
 
-        <!-- Open button placed on the inside page -->
-        <button class="open-btn" id="openBtn" aria-pressed="false">Open</button>
-      </div>
-
-      <!-- FRONT (right) page -->
-      <div class="card-front" id="cardFront">
-        <div class="front-text">
-          <h2>(DEAR MUBARKA)</h2>
-          <p>Hope u are fine, and enjoying your time wonderfully. If u have a couple of minutes I really want to say something from the bottom of my heart ✨💖</p>
-          <p class="h">(from fudail)</p>
-        </div>
-      </div>
+    <div class="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
     </div>
   </div>
 
-  <!-- Surprise Next -->
-  <div class="surprise-button"><a href="ready.html">Next</a></div>
+  <!-- Buttons -->
+  <div class="buttons">
+    <button onclick="cutCake()">Cut 🎂</button>
+    <button onclick="decorate()">Decoration 🎈</button>
+  </div>
 
-  <!-- Floating emoji creation script -->
+  <div class="surprise-button">wishes</div>
+
   <script>
-    // create emoji with small DOM cap protection
-    function createFloatingEmoji(type){
-      const cap = 80;
-      const current = document.querySelectorAll('.heart, .flower').length;
-      if (current > cap) return;
-      const e = document.createElement('div');
-      e.className = (type === 'heart') ? 'heart' : 'flower';
-      e.textContent = (type === 'heart') ? '💖' : '🌸';
-      e.style.left = (Math.random() * 92 + 4) + 'vw';
-      e.style.fontSize = (Math.random() * 16 + 18) + 'px';
-      const dur = 5.5 + Math.random() * 1.2;
-      e.style.animationDuration = dur + 's';
-      document.body.appendChild(e);
-      setTimeout(()=> e.remove(), Math.ceil(dur * 1000) + 200);
+    const leftHalf = document.getElementById('leftHalf');
+    const rightHalf = document.getElementById('rightHalf');
+    const banner = document.getElementById('banner');
+    const flames = document.querySelectorAll('.flame');
+
+    function cutCake() {
+      leftHalf.classList.toggle('cut');
+      rightHalf.classList.toggle('cut');
+      flames.forEach(flame => flame.style.opacity = 0)
+      
+
+      // Confetti
+      for (let i = 0; i < 40; i++) {
+        let confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = ['#ff5e78','#f7b267','#4facfe','#7ae582','#ff69b4'][Math.floor(Math.random()*5)];
+        confetti.style.animationDuration = (Math.random()*2+2) + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
     }
 
-    // YOUR original fast intervals restored
-    const heartInterval = setInterval(()=> createFloatingEmoji('heart'), 400);
-    const flowerInterval = setInterval(()=> createFloatingEmoji('flower'), 500);
+    function decorate() {
+      // Show flames
+      flames.forEach(flame => flame.style.opacity = 1);
 
-    // ---------- OPEN/CLOSE logic applied to card-inside ----------
-    const cardInside = document.getElementById('cardInside');
-    const openBtn = document.getElementById('openBtn');
+      // Show banner
+      banner.classList.add('show');
 
-    // ensure closed on load
-    cardInside.classList.remove('open');
-    cardInside.setAttribute('aria-pressed', 'false');
-    openBtn.setAttribute('aria-pressed', 'false');
-    openBtn.textContent = 'Open';
+      // Balloons
+      for (let i = 0; i < 15; i++) {
+        let balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.background = ['#ff5e78','#f7b267','#4facfe','#ff69b4'][Math.floor(Math.random()*4)];
+        balloon.style.animationDuration = (Math.random()*3+3) + 's';
+        document.body.appendChild(balloon);
 
-    function toggleInsideOpen(e){
-      if (e) e.stopPropagation();
-      const isOpen = cardInside.classList.toggle('open');
-      cardInside.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
-      openBtn.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
-      openBtn.textContent = isOpen ? 'Close' : 'Open';
+        setTimeout(() => balloon.remove(), 7000);
+      }
     }
-
-    // open button toggles (stopPropagation to avoid double toggles)
-    openBtn.addEventListener('click', function(ev){
-      ev.stopPropagation();
-      toggleInsideOpen(ev);
-    });
-
-    // tapping / clicking the inside left page also toggles
-    cardInside.addEventListener('click', function(ev){
-      // if click was on the button, it was stopped already
-      toggleInsideOpen(ev);
-    });
-
-    // OPTIONAL: clicking outside card closes it (commented out by default)
-    // document.addEventListener('click', function(ev){
-    //   const container = document.getElementById('cardContainer');
-    //   if (!container.contains(ev.target)){
-    //     cardInside.classList.remove('open');
-    //     cardInside.setAttribute('aria-pressed','false');
-    //     openBtn.setAttribute('aria-pressed','false');
-    //     openBtn.textContent = 'Open';
-    //   }
-    // });
-
-    // small safeguard: on very tiny phones, reduce emoji load
   </script>
 </body>
 </html>
