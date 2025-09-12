@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 6</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* background: #d82771; */
+      background-color: rgb(255, 93, 93);
+      /* background: #d62246; */
+      background-image: url("https://www.transparenttextures.com/patterns/hearts.png");
+      background-repeat: repeat;
+      overflow: hidden;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+    }
+
+    /* Big Heart (scales with screen) */
+    .heart {
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      min-width: 120px;
+      min-height: 120px;
+      background-color: red;
+      transform: rotate(-45deg);
+      z-index: 1;
+      box-shadow: 0 0 3vw rgba(255,0,0,0.6);
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      min-width: 120px;
+      min-height: 120px;
+      background-color: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -50%; left: 0; }
+    .heart::after { top: 0; left: 50%; }
+
+    /* Glass Box Centered */
+    .glass {
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.082);
+      width: clamp(250px, 40vw, 400px);
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 2rem;
+      padding: 2rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Glowing Date */
+    .glow-date {
+      font-size: clamp(1.2rem, 4vw, 2.5rem);
+      font-weight: bold;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff7fcf, 0 0 20px #ff69b4, 0 0 30px #ff1493;
+      margin-bottom: 1rem;
+      animation: typing 3s steps(20, end) forwards, pulseGlow 2s infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 0.15em solid pink;
+      width: 0;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff7fcf, 0 0 20px #ff69b4, 0 0 30px #ff1493; }
+      50% { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6d1, 0 0 30px #ff69b4, 0 0 40px #ff1493; }
+    }
+
+    /* Digital Clock */
+    .clock {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffcc, 0 0 40px #00b3a4;
+      margin-top: 0.5rem;
+    }
+
+    /* Floating Small Hearts */
+    .emoji1 div {
+      position: absolute;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      opacity: 0.8;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+
+    .emf { top: 15%; left: 10%; }
+    .emu { top: 20%; right: 15%; }
+    .emd { top: 60%; left: 5%; }
+    .ema { bottom: 20%; left: 40%; }
+    .emi { bottom: 15%; right: 10%; }
+    .eml { top: 45%; right: 45%; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(15px); }
+    }
+
+    /* Rain of Mubu */
+    .mubu {
+      position: absolute;
+      top: -50px;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493;
+      animation: falls linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes falls {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: pink;
+        top: -10px;
+        animation: fall 4s linear infinite;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+      .surprise-button{
+    position: absolute;
+    bottom: 19px;
+    left: 85%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: #ff69b4;
+    color: white;
+    padding: 10px 22px;
+    border-radius:30px;
+    font-size: 1rem;
+    box-shadow: 0 0 15px #ff1493;
+    cursor: pointer;
+    /* top: 10px; */
+  }
+  .surprise-button a{ color:white; text-decoration:none; font-weight:700; }
+.surprise-button:hover { transform: scale(1.05); background:#ff1493; }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Big Heart (behind) -->
+  <div class="heart"></div>
+
+  <!-- Glass Box Center -->
+  <div class="glass">
+    <div class="glow-date" id="dateText">14 Sept 2025</div>
+    <div class="clock">12:00</div>
+  </div>
+
+  <!-- Floating Small Hearts -->
+  <div class="emoji1">
+    <div class="emf">💖</div>
+    <div class="emu">💘</div>
+    <div class="emd">💕</div>
+    <div class="ema">💗</div>
+    <div class="emi">💓</div>
+    <div class="eml">💞</div>
+  </div>
+
+  <div class="surprise-button">next</div>
+  <script>
+    // Rain of "Mubu"
+    function createMubu() {
+      const mubu = document.createElement("div");
+      mubu.className = "mubu";
+      mubu.textContent = "Mubu";
+      mubu.style.left = Math.random() * window.innerWidth + "px";
+      mubu.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(mubu);
+      setTimeout(() => { mubu.remove(); }, 6000);
+    }
+    setInterval(createMubu, 900);
+
+          const dateText = document.getElementById("dateText");
+      dateText.addEventListener("animationend", () => {
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * window.innerWidth + "px";
+          confetti.style.background = `hsl(${Math.random() * 360}, 70%, 70%)`;
+          confetti.style.animationDuration = Math.random() * 2 + 3 + "s";
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 5000);
+        }
+      });
+  </script>
+
+</body>
+</html>
