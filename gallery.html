@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HASSENA 💖</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 200vh; /* long vertical page */
+    background: #2b003d; /* dark background for moon/stars */
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    color: white;
+    text-align: center;
+  }
+
+  /* CUSTOM SCROLLBAR */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2b003d;
+    box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff69b4, #ff1493);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ff69b4;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff1493, #ff69b4);
+  }
+
+  /* MOON */
+  .moon {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #fff 0%, #ddd 70%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(255,255,255,0.5);
+    z-index: 0;
+  }
+
+  /* STARS */
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.3; transform: scale(0.8); }
+  }
+
+  /* MESSAGE */
+  .message {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-top: 140px;
+    animation: floatDown 1.5s ease forwards;
+    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+  }
+  @keyframes floatDown {
+    0% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* GALLERY */
+  .gallery-container {
+    margin: 80px auto;
+    width: 90%;
+    max-width: 900px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,105,180,0.6);
+  }
+
+  .gallery-track {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item {
+    min-width: 100%;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+  }
+
+  /* NAV BUTTONS */
+  .gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,105,180,0.8);
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    z-index: 5;
+  }
+  .gallery-btn.left { left: 10px; }
+  .gallery-btn.right { right: 10px; }
+
+  .next-button {
+    margin: 50px auto;
+    display: inline-block;
+    background: #ff69b4;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 0 15px #ff1493;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .next-button:hover {
+    transform: scale(1.1);
+  }
+</style>
+</head>
+<body>
+
+<div class="moon"></div>
+
+<!-- STARS -->
+<script>
+  for(let i=0;i<50;i++){
+    let star = document.createElement('div');
+    star.classList.add('star');
+    let size = Math.random()*3+1;
+    star.style.width = size+'px';
+    star.style.height = size+'px';
+    star.style.top = Math.random()*3000+'px';
+    star.style.left = Math.random()*window.innerWidth+'px';
+    star.style.animationDuration = (Math.random()*3+1)+'s';
+    document.body.appendChild(star);
+  }
+</script>
+
+<!-- MESSAGE -->
+<div class="message">Hey Mubu! 🌟 Our Beautiful Memories </div>
+
+<!-- GALLERY -->
+<div class="gallery-container">
+  <button class="gallery-btn left">&#10094;</button>
+  <div class="gallery-track">
+    <div class="gallery-item"><img src="image/meri.jpg" alt="Pic 1"></div>
+    <div class="gallery-item"><img src="image/piyari.jpg" alt="Pic 2"></div>
+    <div class="gallery-item"><img src="image/beautiful.jpg" alt="Pic 3"></div>
+    <div class="gallery-item"><img src="image/cute.jpg" alt="Pic 4"></div>
+    <div class="gallery-item"><img src="image/haseen.jpg" alt="Pic 5"></div>
+    <div class="gallery-item"><img src="image/khubsorat.jpg" alt="Pic 6"></div>
+    <div class="gallery-item"><img src="image/sabseachi.jpg" alt="Pic 7"></div>
+    <div class="gallery-item"><img src="image/muubu.jpg" alt="Pic 8"></div>
+    <div class="gallery-item"><img src="image/aww.jpg" alt="Pic 9"></div>
+    <div class="gallery-item"><img src="image/wow.jpg" alt="Pic 10"></div>
+  </div>
+  <button class="gallery-btn right">&#10095;</button>
+</div>
+
+<a href="bye.html" class="next-button">Next</a>
+
+
+<script>
+  const track = document.querySelector('.gallery-track');
+  const items = document.querySelectorAll('.gallery-item');
+  const prevBtn = document.querySelector('.gallery-btn.left');
+  const nextBtn = document.querySelector('.gallery-btn.right');
+  let index = 0;
+
+  function updateGallery() {
+    track.style.transform = `translateX(-${index*100}%)`;
+  }
+
+  prevBtn.addEventListener('click', ()=>{
+    index = (index > 0) ? index-1 : items.length-1;
+    updateGallery();
+  });
+
+  nextBtn.addEventListener('click', ()=>{
+    index = (index < items.length-1) ? index+1 : 0;
+    updateGallery();
+  });
+</script>
+
+</body>
+</html>
